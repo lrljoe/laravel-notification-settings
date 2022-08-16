@@ -15,7 +15,7 @@ class CreateNotificationSettingsTable extends Migration
     {
         Schema::create('notification_settings', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('user_id');
+            $table->uuid('user_id');
             $table->string('user_type');
             $table->unsignedBigInteger('notification_type_id');
             $table->boolean('status')->default(true);

@@ -23,10 +23,21 @@ class ChannelManager extends BaseChannelManager
             return;
         }
 
+        $watchers = $notifiables['watchers'];
+        $notifiables = $notifiables['notifiableUsers'];
+
         $notifiables = $this->notifiables($notifiables, $notificationType);
+        $notifiables = $notifiables->concat($watchers);
+        $notifiables = $notifiables->unique(function ($item) {
+            return $item['email'];
+        });
 
         (new NotificationSender(
-            $this, $this->container->make(Bus::class), $this->container->make(Dispatcher::class), $this->locale)
+            $this,
+            $this->container->make(Bus::class),
+            $this->container->make(Dispatcher::class),
+            $this->locale
+        )
         )->send($notifiables, $notification);
     }
 
@@ -45,11 +56,22 @@ class ChannelManager extends BaseChannelManager
         if (! NotificationType::isEnabled($notificationType)) {
             return;
         }
+        $watchers = $notifiables['watchers'];
+        $notifiables = $notifiables['notifiableUsers'];
 
         $notifiables = $this->notifiables($notifiables, $notificationType);
 
+        $notifiables = $notifiables->concat($watchers);
+        $notifiables = $notifiables->unique(function ($item) {
+            return $item['email'];
+        });
+
         (new NotificationSender(
-            $this, $this->container->make(Bus::class), $this->container->make(Dispatcher::class), $this->locale)
+            $this,
+            $this->container->make(Bus::class),
+            $this->container->make(Dispatcher::class),
+            $this->locale
+        )
         )->sendNow($notifiables, $notification, $channels);
     }
 
@@ -65,6 +87,9 @@ class ChannelManager extends BaseChannelManager
         $notifiables->load('notificationSettings');
 
         return $notifiables->filter(function ($notifiable) use ($notificationType) {
+            if ($notificationType == 'App\Notifications\InstanceInvite') {
+                return true;
+            }
             return $notifiable->canReceive($notificationType);
         });
     }

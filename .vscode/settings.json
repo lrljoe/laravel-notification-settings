@@ -1,0 +1,21 @@
+{
+  "php.executablePath": "c:\\xampp\\php\\php.exe",
+  "php.debug.executablePath": "c:\\xampp\\php\\php.exe",
+  "php.validate.executablePath": "c:\\xampp\\php\\php.exe",
+  "editor.detectIndentation": false,
+  "phpcs.standard": "PSR12",
+  "php-cs-fixer.executablePath": "C:\\xampp\\php\\php-cs-fixer.phar",
+  "php-cs-fixer.lastDownload": 1659542285557,
+  "php-cs-fixer.executablePathWindows": "C:\\xampp\\php\\php-cs-fixer.phar",
+  "php-cs-fixer.rules": "@PSR12",
+  "files.eol": "\n",
+  "php-cs-fixer.autoFixBySemicolon": true,
+  "php-cs-fixer.exclude": [
+
+  ],
+  "remote.SSH.remotePlatform": {
+      "192.168.1.100": "linux"
+  },
+  "sonarlint.pathToNodeExecutable": "C:\\program files\\nodejs\\node.exe",
+  "phpcs.executablePath": "c:\\xampp\\php\\phpcs"
+}
